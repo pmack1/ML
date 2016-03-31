@@ -6,7 +6,6 @@ import numpy as np
 df = pd.read_csv("mock_student_data.csv")
 columns = df.columns
 
-# df['Age'] = df['Age'].astype("int64")
 summary = []
 for column in columns:
     if df[column].dtype == "float64":
@@ -25,3 +24,4 @@ for row in summary:
 
     f.write(str(value))
 f.close()
+
