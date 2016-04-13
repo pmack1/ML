@@ -6,7 +6,7 @@ def fill_mean(df, col):
     df.loc[df[df.columns[col]].isnull(), df.columns[col]] = df[df.columns[col]].mean()
 
 def categorize_quartile(df, col):
-    '''Splits data into 1,2,3,4 quartile'''
+    '''Splits data into 1,2,3,4 quartile - if quartile are equal to each other does not bin'''
     columns = df.columns
     top = df[columns[col]].max()
     bottom = df[columns[col]].min()
@@ -19,7 +19,8 @@ def categorize_quartile(df, col):
     
 
     bins = [bottom] + [first] + [second] + [third] + [top]
-    new_col_name = df.columns[col] + "_" + "category"
-    df[new_col_name] = pd.cut(x = df[columns[col]], bins = bins, labels = ['first', 'second', 'third', 'fourth'], right = False , include_lowest = True)
+    # new_col_name = df.columns[col] + "_" + "category"
+
+    df[columns[col]] = pd.cut(x = df[columns[col]], bins = bins, labels = [1, 2, 3, 4], right = True , include_lowest = True)
 
 

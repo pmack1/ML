@@ -3,8 +3,8 @@ import pandas as pd
 import pylab as pl
 
 
-def logistic(df_train,df_test,target_col):
-    columns = df_train.columns
+def logistic(x_train, y_train, x_new):
+    
     #import the class
     from sklearn.linear_model import LogisticRegression
 
@@ -12,14 +12,9 @@ def logistic(df_train,df_test,target_col):
     logreg = LogisticRegression()
 
     # fit 
-    x_train = df_train.copy()
-    y_train = x_train[columns[target_col]]
-    del x_train[columns[target_col]]
     logreg.fit(x_train, y_train)
 
     #predict
-    x_new = df_test.copy()
-    del x_new[columns[target_col]]
     return logreg.predict(x_new)
 
 

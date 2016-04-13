@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 from pylab import figure, axes, pie, title, show
 
 def summary_table(df,col): 
-    summary = {'mean': df[col].mean(),
-                'median':df[col].median(),
-                'standard_deviation': df[col].std(),
-                'min': df[col].min(),
-                'max': df[col].max(),
+    summary = {'mean': np.round(df[col].mean(),2),
+                'median':np.round(df[col].median(),2),
+                'standard_deviation': np.round(df[col].std(),2),
+                'min': np.round(df[col].min(),2),
+                'max': np.round(df[col].max(),2),
                 'null_count': len(df[col]) - df[col].count()}
     summary_df = pd.DataFrame(summary, index = ['mean', 'median', 'standard_deviation', 'min', 'max', 'null_count'])
     return  summary_df.iloc[0]
