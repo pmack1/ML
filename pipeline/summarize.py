@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pylab import figure, axes, pie, title, show
 
-def summary_table(df,col): 
+def summary_table(df,col):
     summary = {'mean': np.round(df[col].mean(),2),
                 'median':np.round(df[col].median(),2),
                 'standard_deviation': np.round(df[col].std(),2),
