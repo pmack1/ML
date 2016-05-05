@@ -16,7 +16,7 @@ df_test = read.read_csv('cs-test.csv', index_col = 0)
 columns = df_train.columns
 
 
-#### create histograms for each variable in input data 
+#### create histograms for each variable in input data
 for col in columns:
 
 
@@ -45,12 +45,12 @@ for col in columns:
 ##### summary tables where Target Variable = 1
 for col in columns:
     summary = summarize.summary_table(df_pos, col)
-    summary_title = col + " " + "Summary For Delinquent" 
+    summary_title = col + " " + "Summary For Delinquent"
     summary.to_csv(summary_title)
 ### summary tables where Target Variable = 0
 for col in columns:
     summary = summarize.summary_table(df_neg, col)
-    summary_title = col + " " + "Summary For Non Delinquent" 
+    summary_title = col + " " + "Summary For Non Delinquent"
     summary.to_csv(summary_title)
 
 
@@ -74,8 +74,9 @@ del x_new[columns[TARGET_COL]]
 
 ###### evaluate models on training data by splitting training dataset
 logistic_model_accuracy = evaluate.evaluate_accuracy(x_train, y_train, "logistic")
+print(logistic_model_accuracy)
 
-## Decide which variables to convert into quartiles based on whether converting 
+## Decide which variables to convert into quartiles based on whether converting
 ## each individually improves the accuracy of using all of the variables without transformation
 
 df_train_categorical = df_train.copy()
@@ -137,4 +138,3 @@ output.to_csv("predictions.csv", header = ['Delinquent'])
 
 ##### train on entire training set and return predictions for testing set
 # predictions = classifier.logistic(x_train, y_train, x_new)
-
