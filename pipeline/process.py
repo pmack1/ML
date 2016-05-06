@@ -2,13 +2,16 @@
 import pandas as pd
 import pylab as pl
 import numpy as np
+import matplotlib.pyplot as plt
+from pylab import figure, axes, pie, title, show
+
 
 # a = np.array([1,2,3,0,4,-1,-2])
 # b = np.log(np.ma.array(a)
 
 def transform(df, col, transform = 'log'):
     '''Transforms a column either log, sqrt, or inverse. If the transformation
-    cannot be done (e.g. log of 0) the value is transformed into a null value'''
+    cannot be done (e.g. log of 0) the value is transformed into a null value. Adds the new column as a feature'''
     if transform == 'log':
         rv = np.log(np.ma.array(df[col]))
     elif transform == 'sqrt':
@@ -17,20 +20,30 @@ def transform(df, col, transform = 'log'):
         rv = np.divide(1, np.ma.array(df[col]))
     else:
         print("transform not recognized")
-    df[col] = rv
+    df[col + transform] = rv
 
-def fill_missing(df, col, method = 'mean'):
-    if method == 'mean':
-        df[col].fillna(df[col].mean(), inplace = True)
-    if method == 'mode':
-        '''Uses first mode if multiple'''
-        df[col].fillna(df[col].mode()[0], inplace  = True)
-    if method == 'median':
-        df[col].fillna(df[col].median(), inplace = True)
+def fill_missing(df_train, df_test , mean = [], median = [], mode = []):
+    ''' Fills in missing values by mean, median, or mode. Does not fill in columns in ignore
+    df_test  is  imputed with the  df_train statistics'''
+    for col in df_train.columns:
+        if col in mean:
+            mean_val = df_train[col].mean()
+            df_train[col].fillna(mean_val, inplace = True)
+            df_test[col].fillna(mean_val, inplace = True)
+        if col in mode:
+            '''Uses first mode if multiple'''
+            mode_val = df_train[col].mode()[0]
+            df_train[col].fillna(mode_val, inplace  = True)
+            df_test[col].fillna(mean_val, inplace = True)
+        if col in median:
+            median_val = df_train[col].median()
+            df_train[col].fillna(median_val, inplace = True)
+            df_test[col].fillna(mean_val, inplace = True)
+
 
 def quartile_bin(df, col, q_num = 4, labels = ['first', 'second', 'third', 'fourth']):
     '''Bins Continuous Data into Quartiles '''
-    df[col] = pd.qcut(df[col], q = q_num, labels = labels)
+    df[col + 'Quartile'] = pd.qcut(df[col], q = q_num, labels = labels)
 
 def fill_gender(df):
     '''Fills in missing genders using API'''
@@ -47,22 +60,3 @@ def infer_gender(name):
     r = requests.get(request)
     gender = r.json()['gender']
     return gender.title()
-
-def categorize_quartile(df, col):
-    '''Splits data into 1,2,3,4 quartile - if quartile are equal to each other does not bin'''
-    columns = df.columns
-    top = df[columns[col]].max()
-    bottom = df[columns[col]].min()
-    first = np.percentile(df[columns[col]],25)
-    second = np.percentile(df[columns[col]],50)
-    third = np.percentile(df[columns[col]],75)
-
-
-
-
-
-
-    bins = [bottom] + [first] + [second] + [third] + [top]
-    # new_col_name = df.columns[col] + "_" + "category"
-
-    df[columns[col]] = pd.cut(x = df[columns[col]], bins = bins, labels = [1, 2, 3, 4], right = True , include_lowest = True)

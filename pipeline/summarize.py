@@ -12,19 +12,11 @@ def summary_table(df,col):
                 'max': np.round(df[col].max(),2),
                 'null_count': len(df[col]) - df[col].count()}
     summary_df = pd.DataFrame(summary, index = ['mean', 'median', 'standard_deviation', 'min', 'max', 'null_count'])
-    return  summary_df.iloc[0]
+    summary_title = "tables/" + col + " " + "summary"
+    summary_df.to_csv(summary_title)
 
-def quartile_histogram(df):
-    columns = df.columns
-    for col in columns:
-        top = df[col].max()
-        bottom = df[col].min()
-        first = np.percentile(df[col],25)
-        second = np.percentile(df[col],50)
-        third = np.percentile(df[col],75)
-        bins = [bottom] + [first] + [second] + [third] + [top]
-
-        plt.hist(df[col], bins = bins)
-        plt.title(col)
-        plt.savefig(col)
-        plt.close()
+def histogram(df, col):
+    df[col].hist()
+    plt.title(col)
+    plt.savefig("graphs/" + col)
+    plt.close()
