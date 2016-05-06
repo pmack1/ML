@@ -3,10 +3,21 @@ import pylab as pl
 from sklearn.cross_validation import train_test_split
 from sklearn import metrics
 import classifier
+import time
 
-def evaluate_accuracy(x, y, model_name):
-    if model_name == 'logistic':
-        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.4)
-        y_pred = classifier.logistic(x_train, y_train, x_test)
-        return metrics.accuracy_score(y_test, y_pred)
-
+def print_table(model_name, y_test, y_pred, time_start):
+    accuracy = metrics.accuracy_score(y_test, y_pred)
+    precision = metrics.precision_score(y_test,y_pred)
+    recall = metrics.recall_score(y_test,y_pred)
+    auc = metrics.roc_auc_score(y_test, y_pred)
+    f1score = metrics.f1_score(y_test,y_pred)
+    current_time = time.clock()
+    runtime = current_time - time_start
+    print(model_name)
+    print("accuracy is", accuracy)
+    print("precision is", precision)
+    print("recall is ", recall)
+    print("auc is", auc)
+    print("f1score is",  f1score)
+    print("run time was", runtime)
+    print("\n")

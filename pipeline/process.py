@@ -20,7 +20,7 @@ def transform(df, col, transform = 'log'):
         rv = np.divide(1, np.ma.array(df[col]))
     else:
         print("transform not recognized")
-    df[col + transform] = rv
+    df[col +  transform] = rv
 
 def fill_missing(df_train, df_test , mean = [], median = [], mode = []):
     ''' Fills in missing values by mean, median, or mode. Does not fill in columns in ignore
@@ -41,9 +41,11 @@ def fill_missing(df_train, df_test , mean = [], median = [], mode = []):
             df_test[col].fillna(mean_val, inplace = True)
 
 
-def quartile_bin(df, col, q_num = 4, labels = ['first', 'second', 'third', 'fourth']):
+def quartile_bin(df, col, q_num = 4):
     '''Bins Continuous Data into Quartiles '''
-    df[col + 'Quartile'] = pd.qcut(df[col], q = q_num, labels = labels)
+    labels = [col + str(i) for i in range(1,q_num +1)]
+    df[col] = pd.qcut(df[col], q = q_num, labels = labels)
+
 
 def fill_gender(df):
     '''Fills in missing genders using API'''
