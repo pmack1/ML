@@ -6,9 +6,6 @@ import matplotlib.pyplot as plt
 from pylab import figure, axes, pie, title, show
 
 
-# a = np.array([1,2,3,0,4,-1,-2])
-# b = np.log(np.ma.array(a)
-
 def transform(df, col, transform = 'log'):
     '''Transforms a column either log, sqrt, or inverse. If the transformation
     cannot be done (e.g. log of 0) the value is transformed into a null value. Adds the new column as a feature'''
