@@ -44,7 +44,8 @@ for col in X.columns:
 
 
 # #### Model
-classifier.try_models(X,y, ['LR', 'RF', 'SGD', 'DT', 'GB', 'AB'])
+classifier.try_models(X,y, ['LR'])
+# classifier.try_models(X,y, ['LR', 'RF', 'SGD', 'DT', 'GB', 'AB'])
 
 #### scale data for KNN model
 X_scale = X.copy()

@@ -29,9 +29,6 @@ and the models predicted few positive results. However, this also meant our reca
 
 ![Precision Recall  Curve](graphs/DecisionTreeClassifier.png)
 
-<h2> Conclusions </h2>
-Future research should seek to improve the recall of our models.
-
 <h1> Appendix <h1>
 
 <h2>Results Table:</h2>
@@ -44,7 +41,7 @@ Precicision: 0.25<br>
 Recall: 0.27<br>
 AUC: 0.61<br>
 F1 Score: 0.26<br>
-Run Time: 4.76<br>
+Run Time: 4.76 seconds<br>
 ______________________________________
 AdaBoostClassifier(algorithm='SAMME',
           base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=1,
@@ -57,7 +54,7 @@ Precicision: 0.57<br>
 Recall: 0.19<br>
 AUC: 0.59<br>
 F1 Score: 0.29<br>
-Run Time: 79.74<br>
+Run Time: 79.74 seconds<br>
 ________________________________________
 GradientBoostingClassifier(init=None, learning_rate=0.05, loss='deviance',
               max_depth=6, max_features=None, max_leaf_nodes=None,
@@ -70,7 +67,7 @@ Precicision: 0.0 <br>
 Recall: 0.0 <br>
 AUC: 0.5 <br>
 F1 Score: 0.0 <br>
-Run Time: 15.47 <br>
+Run Time: 15.47 seconds <br>
 ________________________________________
 KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
            metric_params=None, n_jobs=1, n_neighbors=3, p=2,
@@ -80,7 +77,7 @@ Precicision: 0.26 <br>
 Recall: 0.05 <br>
 AUC: 0.52<br>
 F1 Score: 0.09<br>
-Run Time: 12.14<br>
+Run Time: 12.14 secondss<br>
 _______________________________________
 LogisticRegression(C=100000.0, class_weight=None, dual=False,
           fit_intercept=True, intercept_scaling=1, max_iter=100,
@@ -91,7 +88,7 @@ Precicision: 0.52<br>
 Recall: 0.1<br>
 AUC: 0.55<br>
 F1 Score: 0.17<br>
-Run Time: 8.94<br>
+Run Time: 8.94 seconds<br>
 _________________________________________
 RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
             max_depth=None, max_features='auto', max_leaf_nodes=None,
@@ -104,7 +101,7 @@ Precicision: 0.53<br>
 Recall: 0.18<br>
 AUC: 0.58<br>
 F1 Score: 0.26<br>
-Run Time: 59.01<br>
+Run Time: 59.01 seconds<br>
 ___________________________________________
 SGDClassifier(alpha=0.0001, average=False, class_weight=None, epsilon=0.1,
        eta0=0.0, fit_intercept=True, l1_ratio=0.15,
@@ -116,4 +113,4 @@ Precicision: 0.58<br>
 Recall: 0.01<br>
 AUC: 0.5<br>
 F1 Score: 0.02<br>
-Run Time: 0.57<br>
+Run Time: 0.57 seconds<br>

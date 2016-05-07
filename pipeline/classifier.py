@@ -36,13 +36,13 @@ def define_clfs_params():
             }
 
     grid = {
-    'RF':{'n_estimators': [1,10,100], 'max_depth': [1,5,20], 'max_features': ['sqrt','log2'],'min_samples_split': [2,5]},
-    'LR': { 'penalty': ['l1','l2'], 'C': [0.00001,0.1,1,10]},
-    'SGD': { 'loss': ['log'], 'penalty': ['l2','elasticnet']},
-    'DT': {'criterion': ['gini', 'entropy'], 'max_depth': [1,50,100], 'max_features': ['sqrt','log2'],'min_samples_split': [2,5,10]},
-    'KNN' :{'n_neighbors': [1,5,10,25,50,100],'weights': ['uniform','distance'],'algorithm': ['auto','ball_tree','kd_tree']},
-    'GB': {'n_estimators': [1,10,100], 'learning_rate' : [0.001,0.1,0.5],'subsample' : [0.1,0.5,1.0], 'max_depth': [1,3,5,10,100]},
-    'AB': { 'algorithm': ['SAMME', 'SAMME.R'], 'n_estimators': [1,10,100,10000]}
+     'RF':{'n_estimators': [1,10,100,1000,10000], 'max_depth': [1,5,10,20,50,100], 'max_features': ['sqrt','log2'],'min_samples_split': [2,5,10]},
+     'LR': { 'penalty': ['l1','l2'], 'C': [0.00001,0.0001,0.001,0.01,0.1,1,10]},
+     'SGD': { 'loss': ['log','perceptron'], 'penalty': ['l2','l1','elasticnet']},
+     'DT': {'criterion': ['gini', 'entropy'], 'max_depth': [1,5,10,20,50,100], 'max_features': ['sqrt','log2'],'min_samples_split': [2,5,10]},
+     'KNN' :{'n_neighbors': [1,5,10,25,50,100],'weights': ['uniform','distance'],'algorithm': ['auto','ball_tree','kd_tree']},
+     'GB': {'n_estimators': [1,10,100,1000,10000], 'learning_rate' : [0.001,0.01,0.05,0.1,0.5],'subsample' : [0.1,0.5,1.0], 'max_depth': [1,3,5,10,20,50,100]},
+     'AB': { 'algorithm': ['SAMME', 'SAMME.R'], 'n_estimators': [1,10,100,1000,10000]}
            }
     return clfs, grid
 
@@ -53,12 +53,10 @@ def try_models(X,y, models_to_run):
         time_start = time.clock()
         parameter_values = grid[models_to_run[index]]
         model = GridSearchCV(clf, parameter_values)
-        model.fit(X_train,y_train)
-        best_params = model.get_params()
-        y_pred = model.fit(X_train,  y_train).predict(X_test)
-        y_pred_probs = model.fit(X_train, y_train).predict_proba(X_test)[:,1]
+        y_pred = clf.fit(X_train,  y_train).predict(X_test)
+        y_pred_probs = clf.fit(X_train, y_train).predict_proba(X_test)[:,1]
         evaluate.print_table(model,y_test, y_pred, time_start)
-        plot_precision_recall_n(y_test,y_pred_probs,model)
+        plot_precision_recall_n(y_test,y_pred_probs,clf)
 
 
 
