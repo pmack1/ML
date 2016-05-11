@@ -53,10 +53,10 @@ def try_models(X,y, models_to_run):
         time_start = time.clock()
         parameter_values = grid[models_to_run[index]]
         model = GridSearchCV(clf, parameter_values)
-        y_pred = clf.fit(X_train,  y_train).predict(X_test)
-        y_pred_probs = clf.fit(X_train, y_train).predict_proba(X_test)[:,1]
+        y_pred = model.fit(X_train,  y_train).predict(X_test)
+        y_pred_probs = model.fit(X_train, y_train).predict_proba(X_test)[:,1]
         evaluate.print_table(model,y_test, y_pred, time_start)
-        plot_precision_recall_n(y_test,y_pred_probs,clf)
+        plot_precision_recall_n(y_test,y_pred_probs,model)
 
 
 
